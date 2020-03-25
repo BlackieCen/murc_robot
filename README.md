@@ -38,7 +38,7 @@ The strategy can guide a mobile robot through five steps in object transport:
 The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platform and a computer. It combines the capabilities of a depth camera (Intel RealSense Depth Camera D435), a 6-axis lightweight robot arm (UR5) and a gripper (OnRobot RG2) as well as a mobile platform (MiR200).
 
 ### Framework
-![](https://github.com/BlackieCen/murc_robot/tree/master/pics/Topology.jpg)
+![](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
 ![](https://raw.github.com/meolu/walle-web/master/screenshot/logo.jpg)
 ## How to execute the image-based gripping strategy using MuR205 Robot:
 
