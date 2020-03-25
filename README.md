@@ -46,11 +46,13 @@ The communication between components of the robot is done via ROS. The programs 
 ## Configurations in Hardware
 Before running programs, the hardware is supposed to be configured.
 
-0. update of URCap from 1.0.1 to 1.10.1 (if an error "missing URCap" comes up, do this step):
+0. update of URCap from 1.0.1 to 1.10.1 (if an error "missing URCap" comes up, do this step):  
    robot setting-- URcaps-- "+" -- open *OnRobot/RG2-1.10.1_0/OnRobot-1.10.1.urcap*-- restart
 1. load installation file (*murc.installation*) in teach pendant of UR5, then restart UR5
-2. adjust tcp-coordinate system:   (installation-- RG configuration-- rotate the gripper twice in GUI, then RZ becomes 0. )
-3. load placing program:   program-- load program-- open */programms/Cen/Placing.urp*
+2. adjust tcp-coordinate system:  
+   installation-- RG configuration-- rotate the gripper twice in GUI, then RZ becomes 0.
+3. load placing program:  
+   program-- load program-- open */programms/Cen/Placing.urp*
 
 ### What is this Robot:
 
@@ -181,5 +183,7 @@ teleop_robot | Modified version of teleop_twist_keyboard, but can be used to pub
 nullspace_controller5.py | Controller to maintain the current cartesian position of the tcp. How it works: tcp position is transformed in to world frame. World frame can either be Odometry or AMCL-based. Controller always moves arm to specified world posisiton. (needs params.launch)
 move_base_trajectory | Script file to define an odometry based path for the mobile platform. Sends /cmd_vel commands for a specified direction (x_lin and z_angular) for a desired time. 
 LoadObject | Action_server to Load an Object. Performs arm motions and gives feedback during runtime. Current status: not ready yet.
+
+
 
 
