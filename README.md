@@ -14,6 +14,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
 - [Configurations in Hardware](#configurations-in-hardware)
 - [Usage](#usage)
 - [Package Overview](#package-overview)
+- [Node Overview](#node-overview)
 
 ## Background
 
@@ -57,9 +58,14 @@ Before running programs, the hardware is supposed to be configured.
    ```sh
    roslaunch mir_navigation mir_start.launch
    ```
-3. run object detection program in PC:  
+3. run object detection program in PC, inclding camera driver and ur driver as well as serveral servers for object detection, transformation between different coordinate frames and components controlling:  
    ```sh
    roslaunch murc_robot object_detector.py
+   ```
+   if neccessary, run drivers separately
+   ```sh
+   roslaunch realsense2_camera rs_aligned_depth848x480.launch # camera driver
+   roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.12.90 # ur driver
    ```
 4. visualization of camera view und the result of objetdetection in Laptop:  
    ```sh
@@ -69,7 +75,7 @@ Before running programs, the hardware is supposed to be configured.
    ```sh
    rosrun smach_viewer smach_viewer.py
    ```
-6. launch state machine:  
+6. launch gripping state machine:  
    ```sh
    rosrun murc_robot imagebased_grasping_smach4.py
    ```
@@ -78,15 +84,31 @@ Before running programs, the hardware is supposed to be configured.
 
 Package | Description
 ------------- | -------------
-mir_driver    |   The mir driver provides most of the necessary topics and functionalities for either Odometry or SLAM navigation, including the move_base action server, which can be used to execute goal requests. Since velocities of the wheels are not published directly, a seperate node is launched, in order to provide those.
-ur_driver     | Old ros driver providing urdf-files and core functionalities. Does not have to be started
-ur_modern_driver | Updated version of ur_driver. Needed for communication with robot controller using ur_srcipt messages. roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.12.90. Arm can be used in different modes: movel, movej, speedl, speedj. Translations currently have to be implemented by yourself. Specific commands can be seen below: XXXXX. Note: The robot hardware controller can only handle low command frequency around under 100Hz. which, so far, is sufficient.
-ur5moveit_config | Only needed for differential kinematics. Especially jacobian. Might throw some errors when loaded before ur_modern_driver.
-RG2_gripper_server | To use the RG2 Gripper, the action server must be started. Can be called through a client, which requires an opening width. It's implemented using the python urx library, which instantiates an individual robot object. Therefore the python-urx folder must be located in the mur_robot src folder
-mur_params | Important parameters can be launched using the params.launch file. It currently stores arm poses as well as navigaiton poses. Mind the namespacing
-teleop_keyboard | Native node to move the mobile platform using twist velocity commands which are published to the /cmd_vel topic.
-teleop_robot | Modified version of teleop_twist_keyboard, but can be used to publish/ load cartesian target poses. 
-nullspace_controller5.py | Controller to maintain the current cartesian position of the tcp. How it works: tcp position is transformed in to world frame. World frame can either be Odometry or AMCL-based. Controller always moves arm to specified world posisiton. (needs params.launch)
-move_base_trajectory | Script file to define an odometry based path for the mobile platform. Sends /cmd_vel commands for a specified direction (x_lin and z_angular) for a desired time. 
-LoadObject | Action_server to Load an Object. Performs arm motions and gives feedback during runtime. Current status: not ready yet.
+mir_driver    |   The mir driver provides most of the necessary topics and functionalities for either Odometry or SLAM navigation, including the move_base action server, which can be used to execute goal requests. 
+realsense2_camera     | This camera driver is able to stream all camera sensors and publish on the appropriate ROS topics.
+ur_modern_driver | Updated version of ur_driver. Needed for communication with robot controller using *ur_srcipt* messages. Arm can be used in different modes: movel, movej, speedl, speedj. 
 
+## Node Overview
+
+Node | Description
+------------- | -------------
+approach2object | Robot approaches the first end of the profile.
+functions_module | provides necessary functions to image processing, including transformation from uv-coordinates to 3D-coordinates in camera coordinate system
+grasp_object | Robot arm grasps the object.
+imagebased_grasping_smach4 | state machine to launch the whole gripping strategy
+img_displayer | displays the result of object detection in the original image.
+IO_test | can set&read IO ports' state. It is also able to start/stop the urp programs indirectly by setting or resetting port.
+movealongobject | Robot moves along the profile to its second end. The action is executed by the move_base (ActionServer)
+movealongobject_cmd | Robot moves along the profile to its second end. The action is executed by the by cmd_vel (ros topic)
+obrobot_rg2_gripper | class of the rg2 gripper
+place_skateboard | places the skateboard near the first end of profile
+position_determination_server | service for calculating the position of object
+position_publisher | invokes the service to calculate the position of object and publishes the results
+profile_detection_v1_08 | algorithm of object detection and estimation of object' 6D-pose
+rg2_gripper_switcher | can open/close the gripper
+RG2Gripper_action_server | action server of the gripper
+set_goal | calculates goals for mobile platform, robot arm and gripper
+transformation_arm | take the transformation matrix camera_T_urtcp into transformation chain
+transformation_handeye | published transformation matrix camera_T_urtcp --- result of hand eye calibration
+ur_move_action_server | action server of robot arm
+ur_pose_maker | change pose of the ur in joint space using movej
