@@ -11,7 +11,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
     - [Task](#task)
     - [Robot](#robot)
     - [Framework](#framework)
-- [Configurations in Hardware](#configurations)
+- [Configurations in Hardware](#configurations-in-hardware)
 - [Usage](#usage)
 	- [Generator](#generator)
 - [Badge](#badge)
