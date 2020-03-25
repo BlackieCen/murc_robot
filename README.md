@@ -16,7 +16,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
 
 ## Background
 
-This strategy was developed in my master thesis *Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots* in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transport of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy is able to help the robot autonomously accomplish the transport task of a object whose weight is beyond the maximum payload of robot arm.
+This strategy was developed in my master thesis, "*Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*" in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transportation of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy can help the robot autonomously accomplish the transport task of an object whose weight is beyond the maximum payload of robot arm.
 
 ## Introduction
 ### Task
@@ -24,15 +24,15 @@ The strategy can guide a mobile robot through five steps in object transport:
 1. detect the object to be transported
 2. obtain its depth information
 3. estimate 6D-pose of the object
-4. plan a procedure to transport the object
+4. plan a procedure to carry the object
 5. execute the procedure.
 
 ### Robot
-The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platform and a computer. It combines the capabilities of a depth camera (Intel RealSense Depth Camera D435), a 6-axis lightweight robot arm (UR5) and a gripper (OnRobot RG2) as well as a mobile platform (MiR200).
+The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platform, and a computer. It combines the capabilities of a depth camera (Intel RealSense Depth Camera D435), a 6-axis lightweight robot arm (UR5), and a gripper (OnRobot RG2) as well as a mobile platform (MiR200).
 
 ![robot and framework](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
 ### Framework
-The communication between components of the robot is done via ROS. The programs ([/scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. In ROS， the components can share their own states with each other. As the following node diagram shows, the groups represent the camera, robot arm and platform respectively. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the profile and approach to, grip or deposit the profile accordingly. The operator can remotely run programs andcontrol the robot in a laptop, because PC in robot shares the ros-master with the laptop via SSH. The operator can also monitor the detected profile and the gripping process on a laptop.
+Components of the robot communicate with each other via ROS. The programs ([/scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. In ROS，the components can share their states with each other. As the following node diagram shows, the groups represent the camera, robot arm, and platform, respectively. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the aluminium profile and approach to, grip, or deposit the aluminium profile accordingly. The operator can remotely run programs and control the robot in a laptop because the PC in robot shares the ros-master with the laptop via SSH. The operator can also monitor the detected profile and the gripping process on a laptop.
 
 ![node diagram](https://github.com/BlackieCen/murc_robot/blob/master/pics/node_diagram.jpg)
 
