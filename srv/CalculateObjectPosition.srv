@@ -1,0 +1,6 @@
+sensor_msgs/Image color_img
+sensor_msgs/Image depth_img
+sensor_msgs/Image aligned_depth_img
+float64 depth_scale
+---
+geometry_msgs/Point destination_point
