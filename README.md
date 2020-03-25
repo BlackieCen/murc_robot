@@ -39,7 +39,8 @@ The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platf
 
 ### Framework
 ![](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
-![](https://raw.github.com/meolu/walle-web/master/screenshot/logo.jpg)
+![](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
+
 ## How to execute the image-based gripping strategy using MuR205 Robot:
 
 
@@ -172,7 +173,6 @@ teleop_robot | Modified version of teleop_twist_keyboard, but can be used to pub
 nullspace_controller5.py | Controller to maintain the current cartesian position of the tcp. How it works: tcp position is transformed in to world frame. World frame can either be Odometry or AMCL-based. Controller always moves arm to specified world posisiton. (needs params.launch)
 move_base_trajectory | Script file to define an odometry based path for the mobile platform. Sends /cmd_vel commands for a specified direction (x_lin and z_angular) for a desired time. 
 LoadObject | Action_server to Load an Object. Performs arm motions and gives feedback during runtime. Current status: not ready yet.
-
 
 
 
