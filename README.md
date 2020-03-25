@@ -11,7 +11,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
     - [Task](#task)
     - [Robot](#robot)
     - [Framework](#framwork)
-- [Install](#install)
+- [Configurations in Hardware](#configurations)
 - [Usage](#usage)
 	- [Generator](#generator)
 - [Badge](#badge)
@@ -39,13 +39,19 @@ The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platf
 
 ![robot and framework](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
 ### Framework
-The communication between components of the robot is done via ROS. The programs (![in scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. The operator can remotely control the robot in a laptop. In ROS the components can share their own states with each other. As the node diagram shows, the groups represent the camera, robot arm and platform. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the profile and approach to, grip or deposit the profile accordingly. The operator can also monitor the detected profile and the gripping process on a laptop.
+The communication between components of the robot is done via ROS. The programs ([/scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. In ROS， the components can share their own states with each other. As the following node diagram shows, the groups represent the camera, robot arm and platform respectively. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the profile and approach to, grip or deposit the profile accordingly. The operator can remotely run programs andcontrol the robot in a laptop, because PC in robot shares the ros-master with the laptop via SSH. The operator can also monitor the detected profile and the gripping process on a laptop.
 
 ![node diagram](https://github.com/BlackieCen/murc_robot/blob/master/pics/node_diagram.jpg)
 
-
-## How to execute the image-based gripping strategy using MuR205 Robot:
-
+## Configurations in Hardware
+Before running programs, the hardware is supposed to be configured.
+0. update of URCap from 1.0.1 to 1.10.1 (if an error "missing URCap" comes up, do this step)
+   robot setting-- URcaps-- "+" -- open *OnRobot/RG2-1.10.1_0/OnRobot-1.10.1.urcap*-- restart
+1. load installation file (*murc.installation*) in teach pendant of UR5, then restart UR5
+2. adjust tcp-coordinate system
+   (installation-- RG configuration-- rotate the gripper twice in GUI, then RZ becomes 0. )
+3. load placing program
+   program-- load program-- open */programms/Cen/Placing.urp*
 
 ### What is this Robot:
 
@@ -176,3 +182,7 @@ teleop_robot | Modified version of teleop_twist_keyboard, but can be used to pub
 nullspace_controller5.py | Controller to maintain the current cartesian position of the tcp. How it works: tcp position is transformed in to world frame. World frame can either be Odometry or AMCL-based. Controller always moves arm to specified world posisiton. (needs params.launch)
 move_base_trajectory | Script file to define an odometry based path for the mobile platform. Sends /cmd_vel commands for a specified direction (x_lin and z_angular) for a desired time. 
 LoadObject | Action_server to Load an Object. Performs arm motions and gives feedback during runtime. Current status: not ready yet.
+
+
+
+
