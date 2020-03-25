@@ -1,0 +1,22 @@
+<launch>
+
+    <!-- <rosparam command="load" file="$(find marvin_cameras)/config/marvin_cameras.yaml" /> -->
+    <include file="$(find realsense2_camera)/launch/rs_aligned_depth848x480.launch" />
+    <node name="position_determination_server_node" pkg="murc_robot" type="position_determination_server.py" />
+    <node name="position_publisher" pkg="murc_robot" type="position_publisher.py" />
+
+    <include file="$(find ur_modern_driver)/launch/ur5_bringup.launch" >
+            <arg name="robot_ip" value="192.168.12.90"/>
+    </include>
+    <node name="transformation_arm_node" pkg="murc_robot" type="transformation_arm.py" />
+    <node pkg="murc_robot" type="transformation_handeye.py" name="handeye_publisher" />
+    <node pkg="murc_robot" type="set_goal.py" name="object_position_calculator" />
+    <node pkg="murc_robot" type="RG2Gripper_action_server.py" name="rg2gripper_action_server" />
+    <node pkg="murc_robot" type="ur_move_action_server.py" name="ur_move_action_server" output="screen"/>
+    <!--
+    
+    <node pkg="murc_robot" type="rg2_gripper_action_client.py" name="rg2_gripper_action_automatic_control" output="screen"/>
+    
+    <node pkg="murc_robot" type="goal_publisher3.py" name="goal_publisher" output="screen"/>
+    -->
+</launch>

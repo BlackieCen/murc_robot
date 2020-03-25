@@ -1,0 +1,10 @@
+int32 target_width
+int32 target_force
+int32 payload
+bool set_payload
+bool depth_compensation
+bool slave
+---
+int32 Success
+---
+int32 Progress
