@@ -16,7 +16,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
 
 ## Background
 
-This strategy was developed in my master thesis, "*Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*" in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transportation of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy can help the robot autonomously accomplish the transport task of an object whose weight is beyond the maximum payload of the robot arm.
+This strategy was developed in my master thesis, "*Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*" in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transportation of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy can help the robot autonomously accomplish the transport task of an object whose weight is beyond the maximum payload of the robot arm. For a successful demostration，please click the link: https://youtu.be/GOlom8Huy4w.
 
 ## Introduction
 ### Task
