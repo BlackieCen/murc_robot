@@ -16,7 +16,7 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
 
 ## Background
 
-This strategy was developed in my master thesis, "*Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*" in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transportation of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy can help the robot autonomously accomplish the transport task of an object whose weight is beyond the maximum payload of robot arm.
+This strategy was developed in my master thesis, "*Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*" in [match](https://www.match.uni-hannover.de/). As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transportation of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy can help the robot autonomously accomplish the transport task of an object whose weight is beyond the maximum payload of the robot arm.
 
 ## Introduction
 ### Task
@@ -32,7 +32,7 @@ The MuR205 Robot is composed of a camera, a robot arm, a gripper, a mobile platf
 
 ![robot and framework](https://github.com/BlackieCen/murc_robot/blob/master/pics/Topology.jpg)
 ### Framework
-Components of the robot communicate with each other via ROS. The programs ([/scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. In ROS，the components can share their states with each other. As the following node diagram shows, the groups represent the camera, robot arm, and platform, respectively. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the aluminium profile and approach to, grip, or deposit the aluminium profile accordingly. The operator can remotely run programs and control the robot in a laptop because the PC in robot shares the ros-master with the laptop via SSH. The operator can also monitor the detected profile and the gripping process on a laptop.
+Components of the robot communicate with each other via ROS. The programs ([/scripts](https://github.com/BlackieCen/murc_robot/tree/master/scripts)) are written in Python. In ROS, the components can share their states. As the following node diagram shows, the groups represent the camera, robot arm, and platform, respectively. The camera provides the images. The position of the profile results from the image processing. Then the components are allowed to detect the position of the aluminium profile and approach to, grip, or deposit the aluminium profile accordingly. The operator can remotely run programs and control the robot in a laptop because the PC in robot shares the ros-master with the laptop via SSH. The operator can also monitor the detected profile and the gripping process on a laptop.
 
 ![node diagram](https://github.com/BlackieCen/murc_robot/blob/master/pics/node_diagram.jpg)
 
@@ -82,21 +82,21 @@ Before running programs, the hardware is supposed to be configured.
 
 Package | Description
 ------------- | -------------
-mir_driver    |   The mir driver provides most of the necessary topics and functionalities for either Odometry or SLAM navigation, including the move_base action server, which can be used to execute goal requests. 
-realsense2_camera     | This camera driver is able to stream all camera sensors and publish on the appropriate ROS topics.
-ur_modern_driver | Updated version of ur_driver. Needed for communication with robot controller using *ur_srcipt* messages. Arm can be used in different modes: movel, movej, speedl, speedj. 
+mir_driver    |   The mir driver provides most of the important topics and functionalities for either Odometry or SLAM navigation, including the move_base action server, which can be used to execute goal requests. 
+realsense2_camera     | This camera driver can stream all camera sensors and publish on the appropriate ROS topics.
+ur_modern_driver | Updated version of ur_driver. Needed for communication with robot controller using *ur_srcipt* messages. The arm can be used in different modes: movel, movej, speedl, speedj. 
 
 ## Node Overview
 
 Node | Description
 ------------- | -------------
 approach2object | Robot approaches the first end of the profile.
-functions_module | provides necessary functions to image processing, including transformation from uv-coordinates to 3D-coordinates in camera coordinate system
+functions_module | provides necessary functions to image processing, including the transformation from uv-coordinates to 3D-coordinates in camera coordinate system
 grasp_object | Robot arm grasps the object.
 imagebased_grasping_smach4 | state machine to launch the whole gripping strategy
 img_displayer | displays the result of object detection in the original image.
 IO_test | can set&read IO ports' state. It is also able to start/stop the urp programs indirectly by setting or resetting port.
-movealongobject | Robot moves along the profile to its second end. The action is executed by the move_base (ActionServer)
+movealongobject | robot moves along the profile to its second end. The action is executed by the move_base (ActionServer)
 movealongobject_cmd | Robot moves along the profile to its second end. The action is executed by the by cmd_vel (ros topic)
 obrobot_rg2_gripper | class of the rg2 gripper
 place_skateboard | places the skateboard near the first end of profile
