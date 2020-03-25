@@ -13,17 +13,11 @@ The *murc_robot* repo presents an image-based gripping strategy for cooperative 
     - [Framework](#framework)
 - [Configurations in Hardware](#configurations-in-hardware)
 - [Usage](#usage)
-	- [Generator](#generator)
-- [Badge](#badge)
-- [Example Readmes](#example-readmes)
-- [Related Efforts](#related-efforts)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
+- [Package Overview](#package-overview)
 
 ## Background
 
-This strategy was developed in my master thesis *Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots*. As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transport of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy is able to help the robot autonomously accomplish the transport task of a object whose weight is beyond the maximum payload of robot arm.
+This strategy was developed in my master thesis *Development of an Image-Based Gripping Strategy for Cooperative Object Transport using Mobile Robots* in MATCH LUH. As a preliminary project of cooperative object transport using several mobile robots, this thesis focuses on the transport of an aluminium profile by the cooperation of one mobile robot and a passive flatbed trolley. The proposed strategy is able to help the robot autonomously accomplish the transport task of a object whose weight is beyond the maximum payload of robot arm.
 
 ## Introduction
 ### Task
@@ -57,27 +51,27 @@ Before running programs, the hardware is supposed to be configured.
 ## Usage
 1. run MiR driver in PC:  
    ```sh
-   $ roslaunch mir_driver mir.launch
+   roslaunch mir_driver mir.launch
    ```
 2. run MiR navigation (Rviz) in Laptop:  
    ```sh
-   $ roslaunch mir_navigation mir_start.launch
+   roslaunch mir_navigation mir_start.launch
    ```
 3. run object detection program in PC:  
    ```sh
-   $ roslaunch murc_robot object_detector.py
+   roslaunch murc_robot object_detector.py
    ```
 4. visualization of camera view und the result of objetdetection in Laptop:  
    ```sh
-   $ rosrun murc_robot img_displayer.py
+   rosrun murc_robot img_displayer.py
    ```
 5. monitor current gripping process in state machine in Laptop:  
    ```sh
-   $ rosrun smach_viewer smach_viewer.py
+   rosrun smach_viewer smach_viewer.py
    ```
 6. launch state machine:  
    ```sh
-   $ rosrun murc_robot imagebased_grasping_smach4.py
+   rosrun murc_robot imagebased_grasping_smach4.py
    ```
 
 ## Package Overview
@@ -95,5 +89,4 @@ teleop_robot | Modified version of teleop_twist_keyboard, but can be used to pub
 nullspace_controller5.py | Controller to maintain the current cartesian position of the tcp. How it works: tcp position is transformed in to world frame. World frame can either be Odometry or AMCL-based. Controller always moves arm to specified world posisiton. (needs params.launch)
 move_base_trajectory | Script file to define an odometry based path for the mobile platform. Sends /cmd_vel commands for a specified direction (x_lin and z_angular) for a desired time. 
 LoadObject | Action_server to Load an Object. Performs arm motions and gives feedback during runtime. Current status: not ready yet.
-
 
